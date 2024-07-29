@@ -1,8 +1,28 @@
 import { CircleDashed, UserCog } from 'lucide-react'
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Button from '../../components/button'
+import { useParams } from 'react-router-dom'
+import { format } from 'date-fns'
+import { api } from '../../lib/axios'
+
+interface Participants {
+    id: string
+    name?: 
+}
 
 export default function Guests() {
+
+    const { tripId } = useParams()
+    const [trip, setTrip] = useState<Trip | undefined>()
+    
+    const displayedDate = trip
+    ? format(trip.starts_at, "d' de 'LLL").concat(' até ').concat(format(trip.ends_at, "d' de 'LLL"))
+    : null
+
+    useEffect(() => {
+        api.get(`/trips/${tripId}`).then(response => console.log(response.data))
+    }, [tripId])
+    
   return (
     <div className="space-y-6">
         <h2 className="font-semibold text-xl">Convidados</h2>
