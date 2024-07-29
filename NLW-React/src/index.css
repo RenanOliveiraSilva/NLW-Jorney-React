@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    min-width: 0;
+}
+
+input {
+    color-scheme: dark;
+}
+
+.rdp-root {
+    --rdp-accent-color: #BEF264;
+    --rdp-accent-background-color: #bef26449;
+    --rdp-day_button-height: 2.75rem;
+    --rdp-day_button-width: 2.75rem;
+    --rdp-selected-font: 2.75rem;
+    --rdp-range_middle-font: 2.75rem;
+  }
