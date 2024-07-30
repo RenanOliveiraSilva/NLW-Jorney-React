@@ -39,7 +39,7 @@ export default function DestinationAndDateHeader() {
             <div className="flex items-center gap-2">
                 <Calendar className="size-5 text-zinc-400 " />
                 <span className="text-zinc-100">
-                    17 a 23 de Agosto
+                    {trip?.starts_at} até {trip?.ends_at}
                 </span>
             </div>
 
