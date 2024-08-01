@@ -17,14 +17,13 @@ export default function DestinationAndDateHeader() {
 
     const { tripId } = useParams()
     const [trip, setTrip] = useState<Trip | undefined>()
-    
-    const displayedDate = trip
-    ? format(trip.starts_at, "d' de 'LLL").concat(' até ').concat(format(trip.ends_at, "d' de 'LLL"))
-    : null
 
     useEffect(() => {
-        api.get(`/trips/${tripId}`).then(response => console.log(response.data))
+        api.get(`trips/${tripId}`).then(response => setTrip(response.data.trip))
     }, [tripId])
+
+    const displayedDate = trip ? format(trip.starts_at, "d' de 'LLL").concat(' até ').concat(format(trip.ends_at, "d' de 'LLL"))
+  : null
 
   return (
     <div className="px-4 h-16 rounded-xl bg-zinc-900 shadow-shape flex items-center justify-between">
@@ -39,7 +38,7 @@ export default function DestinationAndDateHeader() {
             <div className="flex items-center gap-2">
                 <Calendar className="size-5 text-zinc-400 " />
                 <span className="text-zinc-100">
-                    {trip?.starts_at} até {trip?.ends_at}
+                <span className="text-zinc-100">{displayedDate}</span>
                 </span>
             </div>
 

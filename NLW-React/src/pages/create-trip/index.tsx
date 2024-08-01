@@ -6,7 +6,6 @@ import { ConfirmTripmodal } from './confirm-trip-modal';
 import { DestinationAndDateStep } from './steps/destination-and-date-step';
 import { InviteGuestsStep } from './steps/invite-guests-step';
 import { DateRange } from 'react-day-picker';
-import { AppleIcon } from 'lucide-react';
 import { api } from '../../lib/axios';
 
 export function CreateTripPage() {
@@ -73,32 +72,26 @@ export function CreateTripPage() {
   async function createTrip(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    console.log(destination)
-    console.log(eventStartAndEndDates)
-    console.log(emailsToInvite)
-    console.log(ownerName)
-    console.log(ownerEmail)
-
-    if(!destination) {
+    if (!destination) {
       return
     }
 
-    if(emailsToInvite.length === 0) {
+    if (!eventStartAndEndDates?.from || !eventStartAndEndDates?.to) {
       return
     }
 
-    if(!eventStartAndEndDates?.from || !eventStartAndEndDates?.to) {
+    if (emailsToInvite.length === 0) {
       return
     }
 
-    if(!ownerName || !ownerEmail) {
+    if (!ownerName || !ownerEmail) {
       return
     }
 
     const response = await api.post('/trips', {
       destination,
-      starts_at: eventStartAndEndDates?.from,
-      ends_at: eventStartAndEndDates?.from,
+      starts_at: eventStartAndEndDates.from,
+      ends_at: eventStartAndEndDates.to,
       emails_to_invite: emailsToInvite,
       owner_name: ownerName,
       owner_email: ownerEmail
@@ -106,7 +99,7 @@ export function CreateTripPage() {
 
     const { tripId } = response.data
 
-    navigate(`/trips/${ tripId }`)
+    navigate(`/trips/${tripId}`)
   }
 
   function removeEmailFromInvites(emailToRemove: string) {
