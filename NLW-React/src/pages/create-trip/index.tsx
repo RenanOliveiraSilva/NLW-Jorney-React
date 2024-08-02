@@ -13,7 +13,7 @@ export function CreateTripPage() {
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState(false)
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState(false)
   const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] = useState(false)
-  
+  const [isLoading, SetIsLoading] = useState(false)
   
   const [destination, setDestination] = useState('')
   const [ownerName, setOwnerName] = useState('')
@@ -48,6 +48,14 @@ export function CreateTripPage() {
     setIsConfirmTripModalOpen(false)
   }
 
+  function openLoading(){
+    SetIsLoading(true)
+  }
+
+  function closeLoading(){
+    SetIsLoading(false)
+  }
+
   function addNewEmailToInvite(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
@@ -71,6 +79,7 @@ export function CreateTripPage() {
 
   async function createTrip(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    openLoading();
 
     if (!destination) {
       return
@@ -98,7 +107,7 @@ export function CreateTripPage() {
     })
 
     const { tripId } = response.data
-
+    closeLoading();
     navigate(`/trips/${tripId}`)
   }
 
@@ -161,6 +170,7 @@ export function CreateTripPage() {
           createTrip={createTrip}
           setOwnerName={setOwnerName}
           setOwnerEmail={setOwnerEmail}
+          isLoading={isLoading}
         />
       )}
     </div>
