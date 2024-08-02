@@ -17,4 +17,18 @@ input {
     --rdp-day_button-width: 2.75rem;
     --rdp-selected-font: 2.75rem;
     --rdp-range_middle-font: 2.75rem;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px rgb(9,9,11) inset !important;
+    -webkit-text-fill-color: rgb(212,212,216) !important; /* Cor do texto preenchido */
+      color: rgb(212,212,216) !important; /* Cor do texto preenchido */
+    
+  }
+
+  /* Firefox */
+  input:-moz-autofill {
+    box-shadow: 0 0 0 1000px rgb(9,9,11) inset !important;
+    -moz-text-fill-color: rgb(212,212,216) !important;
+    color: rgb(212,212,216) !important; /* Cor do texto preenchido */
   }

@@ -8,7 +8,7 @@ const buttonVariants = tv({
         variant: {
             primary: 'bg-lime-300 text-lime-950 hover:bg-lime-400',
             secondary: 'bg-zinc-800 text-zinc-200 hover:bg-zinc-700',
-            primaryDisabled: 'bg-lime-300 text-lime-950 hover:bg-lime-400 disabled:bg-lime-200 disabled:text-lime-500 disabled:cursor-not-allowed disabled:opacity-50 py-2 px-4 rounded'
+            disabled: 'bg-lime-300 text-lime-950 hover:bg-lime-400 disabled:bg-lime-200 disabled:text-lime-500 disabled:cursor-not-allowed disabled:opacity-50 py-2 px-4 rounded'
         },
 
         size: {
@@ -26,12 +26,19 @@ const buttonVariants = tv({
 
 
 interface ButtonProps extends ComponentProps<'button'>, VariantProps<typeof buttonVariants> {
-    children: ReactNode
+    children: ReactNode,
+    isDisabled: boolean
 }
 
-export default function Button({children, variant, size, ...props}: ButtonProps) {
+export default function Button({children, variant, size, isDisabled, ...props}: ButtonProps) {
+
+    const buttonClass = buttonVariants({
+        variant: isDisabled ? 'disabled' : variant,
+        size
+    });
+
   return (
-    <button {...props} className={buttonVariants({ variant, size })}>
+    <button {...props} className={buttonClass} disabled={isDisabled}>
         {children}
     </button>
   )

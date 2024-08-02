@@ -14,15 +14,14 @@ export function CreateTripPage() {
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState(false)
   const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] = useState(false)
   const [isLoading, SetIsLoading] = useState(false)
+  const [isDisabled, SetIsDisabled] = useState(false)
   
   const [destination, setDestination] = useState('')
   const [ownerName, setOwnerName] = useState('')
   const [ownerEmail, setOwnerEmail] = useState('')
   const [eventStartAndEndDates, setEventStartAndEndDates] = useState<DateRange | undefined>()
 
-  const [emailsToInvite, setEmailsToInvite] = useState([
-    'lyvia.morini@hotmail.com'
-  ])
+  const [emailsToInvite, setEmailsToInvite] = useState(['lyviamorini@morini'])
 
   function openGuestsInput() {
     setIsGuestsInputOpen(true)
@@ -56,6 +55,14 @@ export function CreateTripPage() {
     SetIsLoading(false)
   }
 
+  function setEnable(){
+    SetIsDisabled(false)
+  }
+
+  function setDisable(){
+    SetIsDisabled(true)
+  }
+
   function addNewEmailToInvite(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
@@ -79,8 +86,7 @@ export function CreateTripPage() {
 
   async function createTrip(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    openLoading();
-
+    
     if (!destination) {
       return
     }
@@ -88,15 +94,18 @@ export function CreateTripPage() {
     if (!eventStartAndEndDates?.from || !eventStartAndEndDates?.to) {
       return
     }
-
+    
     if (emailsToInvite.length === 0) {
       return
     }
-
+    
     if (!ownerName || !ownerEmail) {
       return
     }
 
+    setDisable();
+    openLoading();
+    
     const response = await api.post('/trips', {
       destination,
       starts_at: eventStartAndEndDates.from,
@@ -107,7 +116,10 @@ export function CreateTripPage() {
     })
 
     const { tripId } = response.data
+
     closeLoading();
+    setEnable();
+
     navigate(`/trips/${tripId}`)
   }
 
@@ -171,6 +183,9 @@ export function CreateTripPage() {
           setOwnerName={setOwnerName}
           setOwnerEmail={setOwnerEmail}
           isLoading={isLoading}
+          isDisabled={isDisabled}
+          destination={destination}
+          eventStartAndEndDates={eventStartAndEndDates}
         />
       )}
     </div>

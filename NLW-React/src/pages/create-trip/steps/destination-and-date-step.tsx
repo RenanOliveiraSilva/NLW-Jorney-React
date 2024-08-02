@@ -49,7 +49,7 @@ export function DestinationAndDateStep({
                 />
             </div>
 
-            <button onClick={openDatePicker} disabled={isGuestsInputOpen} className="flex items-center gap-2 text-left w-[220px]">
+            <button onClick={openDatePicker} disabled={isGuestsInputOpen} className="flex items-center gap-2 text-left w-[250px]">
                 <Calendar className='size-5 text-zinc-400'/>
                 <span className="text-lg text-zinc-400 w-40 flex-1">
                     {displayedDate || 'Quando?'}

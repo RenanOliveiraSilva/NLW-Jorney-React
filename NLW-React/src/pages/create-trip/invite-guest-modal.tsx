@@ -54,7 +54,7 @@ export function InviteGuestModal({ addNewEmailToInvite, closeGuestModal, emailsT
 
               </div>
               
-              <Button>
+              <Button isDisabled={false}>
                 Convidar
                 <Plus className="size-5 text-lime-950" />
               </Button>
